@@ -10,4 +10,10 @@ class Apple extends ActiveRecord
     {
         return 'apples';
     }
+
+    public function eat($percent)
+	{
+		$this->eatenPercent = $this->eatenPercent + $percent;
+	}
+
 }
