@@ -1,3 +1,18 @@
 
+function eatApple($id, $percent) {
 
-$('.container').append('<p>SHOW!!!</p>');
+$.ajax({
+	url: 'index.php?r=fruit/eat',
+	data: {id: $id, percent: $percent},
+	success: function(res){
+		console.log(res);
+	},
+	error: function() {
+		alert('Error!');
+	}
+
+});
+
+location.reload();
+
+}

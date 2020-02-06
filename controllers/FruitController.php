@@ -42,11 +42,23 @@ private function randomDate($start_date, $end_date)
 		->where(['id' => 1])
         	->one();
 	
-	$apple->eat(10);
-	$apple->save();
+	/*$apple->eat(10);
+	$apple->save();*/
 
         return $this->render('index', compact('apples', 'apple'));
     }
+
+
+    public function actionEat()
+    {
+	$rq = Yii::$app->request->get();
+	$apple = Apple::find()
+		->where(['id' => $rq[id]])
+        	->one();
+	$apple->eat($rq[percent]);
+	$apple->save();
+	return "Eat!";
+    }		
 
 
 }
