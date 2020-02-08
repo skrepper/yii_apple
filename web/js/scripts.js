@@ -13,6 +13,8 @@ $.ajax({
 
 });
 
-location.reload();
+setTimeout(function() {console.log('timeout')}, 2000);
+
+location.href="index.php?r=fruit";
 
 }

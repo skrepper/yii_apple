@@ -29,3 +29,11 @@
 .divTableBody {
 	display: table-row-group;
 }
+
+div.divTableCell button.btn {
+	width: 150px;
+}
+
+div.createApplesForm {
+	width: 200px;
+}
