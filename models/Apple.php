@@ -22,4 +22,16 @@ class Apple extends ActiveRecord
 		$this->eatenPercent = $this->eatenPercent + $percent;
 	}
 
+    public function getTimeToDrop()
+	{
+		$coeff = 60;
+		$maxdiff = 5*3600/$coeff;
+		$diff =  time() - strtotime($this->creationDateTime) - $maxdiff;
+		$progressValue = (1 - (time() - strtotime($this->creationDateTime))/$maxdiff)*100;
+		if ($diff > 0) {
+			return 0;
+		} else {
+			return $progressValue;
+		}
+	}
 }

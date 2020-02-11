@@ -30,7 +30,12 @@ if (Yii::$app->user->isGuest) {
 
 </div>
 
-<div class="divTable">
+<div class="divTable"> 
+	<div class="divTableHeading">
+		<div class="divTableHead">Name</div>
+		<div class="divTableHead">Eat / %</div>
+		<div class="divTableHead">Time to drop (5h)</div>
+	</div>
 
 <?php for ($i = 0; $i < count($apples); $i++): ?>
 	<div class="divTableRow">
@@ -38,9 +43,10 @@ if (Yii::$app->user->isGuest) {
 	<div class="divTableCell">	
 		<button class='btn btn-<?=getEatenColor($apples[$i]->eatenPercent) ?>' 
 		onclick='eatApple(<?=$apples[$i]->id;?>,10);'>  
-		Eat. Now(<?=$apples[$i]->eatenPercent ?>)
+		Eat / <?=$apples[$i]->eatenPercent ?>%
 		</button>
 	</div>
+	<div class="divTableCell"> <progress max="100" value="<?=$apples[$i]->timeToDrop ?>"></progress> </div>
 	</div>
 <?php endfor; ?>
 	

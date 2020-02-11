@@ -21,7 +21,7 @@ class FruitController extends Controller
 				$apple =  new Apple();
 				$apple->name = 'Apple '.rand(0,16);
 				$apple->onTree = true;
-				$apple->creationDateTime = randomDate(date("Y-m-d H:i:s"), date("Y-m-d H:i:s", time() + 36000));
+				$apple->creationDateTime = randomDate(date("Y-m-d H:i:s"), date("Y-m-d H:i:s", time() - 300));
 			        $apple->fallDateTime = null;
 				$apple->rotten = false;
 			        $apple->color = rand(0,16);
@@ -46,8 +46,12 @@ class FruitController extends Controller
 		->where(['id' => $rq[id]])
         	->one();
 
-	if (is_null($apple)) {
+	if (is_null($apple)) { 
 		die(header("Id Not Found = ".$rq[id]));;
+	}
+
+	if ($apple->onTree == 1) { 
+		return "On tree!";
 	}
 
 	if ($apple->eatenPercent>=90) {
