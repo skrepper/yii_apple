@@ -26,9 +26,9 @@ class Apple extends ActiveRecord
 	{
 		$coeff = 60;
 		$maxdiff = 5*3600/$coeff;
-		$diff =  time() - strtotime($this->creationDateTime) - $maxdiff;
-		$progressValue = (1 - (time() - strtotime($this->creationDateTime))/$maxdiff)*100;
-		if ($diff > 0) {
+		$diff =  time() - strtotime($this->creationDateTime);// - $maxdiff;
+		$progressValue = (1 - $diff/$maxdiff)*100;
+		if ($diff > $maxdiff) {
 			return 0;
 		} else {
 			return $progressValue;

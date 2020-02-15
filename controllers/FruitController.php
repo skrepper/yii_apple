@@ -14,6 +14,15 @@ class FruitController extends Controller
     public function actionIndex()
     {
 	
+	//на дереве и старее 5 минут
+	$apples = Apple::find()->where('onTree = 1 and TIMESTAMPDIFF(SECOND, `creationDateTime`, now())>300')->all();
+	foreach ($apples as $apple) {
+    		$apple->onTree = 0;
+		$apple->update(false);
+	}
+	$apple = null;
+
+
 	$createApplesForm = new CreateApplesForm();
 	if ($createApplesForm->load(YII::$app->request->post())){
 		if ($createApplesForm->validate()) {
@@ -21,7 +30,8 @@ class FruitController extends Controller
 				$apple =  new Apple();
 				$apple->name = 'Apple '.rand(0,16);
 				$apple->onTree = true;
-				$apple->creationDateTime = randomDate(date("Y-m-d H:i:s"), date("Y-m-d H:i:s", time() - 300));
+				//случайно в последние 5 минут
+				$apple->creationDateTime = randomDate(date("Y-m-d H:i:s"), date("Y-m-d H:i:s", time() - 300)); 
 			        $apple->fallDateTime = null;
 				$apple->rotten = false;
 			        $apple->color = rand(0,16);
