@@ -13,10 +13,10 @@ $.ajax({
 
 });
 
-setTimeout(function() {console.log('timeout')}, 2000);
-
+//небольшая задержка для того чтобы увидеть изменения
+setTimeout(function() {
+console.log('timeout')}, 2000);
 location.href="index.php?r=fruit";
-
 }
 
 /*refresh every minute*/

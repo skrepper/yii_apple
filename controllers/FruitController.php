@@ -23,7 +23,7 @@ class FruitController extends Controller
 	}
 	$apple = null;
 
-	//на дереве и старее 5 минут
+	//на земле уже 5 минут
 	$apples = Apple::find()->where('rotten = 0 and TIMESTAMPDIFF(SECOND, `fallDateTime`, now())>300')->all();
 	foreach ($apples as $apple) {
     	$apple->rotten = 1;
