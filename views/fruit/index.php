@@ -34,8 +34,10 @@ if (Yii::$app->user->isGuest) {
 	<div class="divTableHeading">
 		<div class="divTableHead">Name</div>
 		<div class="divTableHead">Eat / %</div>
-		<div class="divTableHead">Time to drop (5h)</div>
+		<div class="divTableHead">Time to drop (5min)</div>
 		<div class="divTableHead">On tree</div>
+		<div class="divTableHead">Color</div>
+		<div class="divTableHead">Rotten</div>
 	</div>
 
 <?php for ($i = 0; $i < count($apples); $i++): ?>
@@ -49,6 +51,8 @@ if (Yii::$app->user->isGuest) {
 	</div>
 	<div class="divTableCell"> <progress max="100" value="<?=$apples[$i]->timeToDrop ?>"></progress> </div>
 	<div class="divTableCell"><?= ($apples[$i]->onTree==1)?'On tree':'Dropped'; ?> </div>
+	<div class="divTableCell"><div class="square" style="background:<?=$apples[$i]->colorInfo ?>">&nbsp;</div></div>
+	<div class="divTableCell"><?= ($apples[$i]->rotten==1)?'Rotten':'Fresh'; ?> </div>
 	</div>
 <?php endfor; ?>
 	

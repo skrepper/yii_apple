@@ -17,18 +17,27 @@ class FruitController extends Controller
 	//на дереве и старее 5 минут
 	$apples = Apple::find()->where('onTree = 1 and TIMESTAMPDIFF(SECOND, `creationDateTime`, now())>300')->all();
 	foreach ($apples as $apple) {
-    		$apple->onTree = 0;
+    	$apple->onTree = 0;
+		$apple->fallDateTime = date("Y-m-d H:i:s");
 		$apple->update(false);
 	}
 	$apple = null;
 
+	//на дереве и старее 5 минут
+	$apples = Apple::find()->where('rotten = 0 and TIMESTAMPDIFF(SECOND, `fallDateTime`, now())>300')->all();
+	foreach ($apples as $apple) {
+    	$apple->rotten = 1;
+		$apple->update(false);
+	}
+	$apple = null;
 
 	$createApplesForm = new CreateApplesForm();
 	if ($createApplesForm->load(YII::$app->request->post())){
 		if ($createApplesForm->validate()) {
+			$max_id = Apple::find()->max('id');
 			for ($i=0; $i<$createApplesForm->numOfApples; ++$i) {
 				$apple =  new Apple();
-				$apple->name = 'Apple '.rand(0,16);
+				$apple->name = 'Apple '.($max_id+$i+1);
 				$apple->onTree = true;
 				//случайно в последние 5 минут
 				$apple->creationDateTime = randomDate(date("Y-m-d H:i:s"), date("Y-m-d H:i:s", time() - 300)); 
@@ -62,6 +71,10 @@ class FruitController extends Controller
 
 	if ($apple->onTree == 1) { 
 		return "On tree!";
+	}
+
+	if ($apple->rotten == 1) { 
+		return "Rotten!";
 	}
 
 	if ($apple->eatenPercent>=90) {
